@@ -2,17 +2,24 @@ import { FC, useEffect, useState } from "react";
 
 import Post from "../widgets/Post";
 import { useScrollHandler } from "../shared/hooks/useScrollHandler";
-import { useAppSelector } from "../app/store/hooks/redux";
 import { postApi } from "../shared/PostService";
 import Ipost from "../shared/interfaces/Iposts";
 
 const MainPage: FC = () => {
-  const [posts, setPosts] = useState<any>([]);
+  const [posts, setPosts] = useState<Ipost[]>([]);
   const page = useScrollHandler();
   const { data } = postApi.useFetchAllPostsQuery(page);
 
+  const a = [1, 2, 3];
+  const b = [3, 4];
+
   useEffect(() => {
-    data && setPosts((prevState: any) => [...prevState, ...data]);
+    data &&
+      setPosts((prevState: Ipost[]) => {
+        const set = new Set([...prevState, ...data]);
+        const newPosts: Ipost[] = Array.from(set);
+        return newPosts;
+      });
   }, [data]);
 
   return (

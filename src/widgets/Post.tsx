@@ -11,7 +11,7 @@ const Post: FC<Ipost> = ({ id, title, body }) => {
         <h2>{title}</h2>
         <p className="text--short">{body}</p>
         <Link to={`/post/${id}`}>
-          <button className="button">Подробнее</button>
+          <button className="button">See details</button>
         </Link>
       </div>
     </>
